@@ -51,12 +51,9 @@ document.querySelectorAll(".dropdown-item").forEach((item) => {
 });
 
 fillTable.addEventListener('click', function (event) {
-
+  const selectedColor = dropdownButton.textContent;
   event.preventDefault();
-  fillTableValues('Red');
-  fillTableValues('Yellow');
-  fillTableValues('Green');
-  fillTableValues('Blue');
+  fillTableValues(selectedColor);
 })
 
 function fillTableValues(color) {
