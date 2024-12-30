@@ -1,0 +1,567 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+.simulation-container object {
+    position: relative;
+    width: 100%;
+}
+
+
+div object{
+    width: 100%;
+    height: 100%;
+}
+
+.col{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+#stopwatch-button, #power-btn, #checker{
+    cursor: pointer;
+}
+
+
+.terminals,
+#resistor,
+#led-whole{
+    animation: none 4s linear infinite;
+    cursor: pointer;
+}
+
+@keyframes glow-comp{
+    0%{
+        stroke-width: 0.4%;
+    }
+    50%{
+        stroke-width: 1.25%;
+    }
+    100%{
+        stroke-width: 0.4%;
+    }
+}
+
+#supercapacitor-head, #disKey{
+    fill: #FFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+#wire1, #wire2, #wire3, #wire4,
+#wire5, #wire6, #wire7, #wire8, #wire9, #wire10 {
+    display: none;
+}
+
+.replacement{
+    transform: matrix(1.35, 0, 0, 1.35, -32.5, -63)
+}
+
+.hidden{
+    display: none;
+}
+
+@media (min-width: 1200px){
+    .container{
+        max-width: 95% !important;
+        margin-top: 1%;
+    }
+}
+
+.fcol{
+    width: 39%;
+}
+
+.scol{
+    width: 61%;
+    padding: 0% 2% 0% 2%;
+}
+
+form{
+    height: 50%;
+}
+
+.table{
+    display: flex;
+    height: 50%;
+    justify-content: center;
+    margin-bottom: 0px !important;
+    /* vertical-align: middle; */
+}
+
+table{
+    width: 50%;
+    text-align: center;
+    margin: 0 0.5%;
+    border-collapse: collapse;
+}
+
+th{
+    background-color: #212529;
+    color: #FFF;
+    /* height: 20px; */
+}
+
+.tablehead, .obs{
+    /* background-color: #007bff; */
+    color: #fff;
+}
+
+.tablehead h4, .tablehead h5{
+    margin-bottom: 0px;
+}
+
+.table-input{
+    text-align: center;
+    border: 0px;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.table-input{
+    width: 50%;
+}
+
+.table-input{
+    width: 100%;
+}
+
+.obs{
+    background-color: #007bff;
+    text-align: center;
+    /* padding: 1%; */
+    margin: 0 0.5%;
+}
+
+th, tr, td, .obs{
+    border: 2px solid #dee2e6 ;
+}
+
+.table table td, .table table th{
+    padding: 0;
+    vertical-align: middle;
+}
+
+tr{
+    height: 10%;
+    font-size: 1vw;
+}
+
+.graph{
+    padding: 1% 0%;
+    height: 100%;
+}
+
+.graph canvas{
+    width: 84% !important;
+    height: 100% !important;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+
+.simulation-container .btn-sbt{
+    margin-left: 40%;
+    margin-top: 2%;
+    display: none;
+}
+
+.pulse {
+    fill: white;
+    fill-opacity: 0;
+    /* transform-origin: -1297px 190px; */
+    animation-duration: 3s;
+    animation-name: none;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    z-index: 1;
+    /* stroke: yellow; */
+}
+
+.bulb{
+    fill: #ddd; /* Default bulb color when off */
+    transition: fill 0.3s ease, filter 0.3s ease;
+}
+
+/* Glow effect */
+.glow {
+    filter: drop-shadow(0 0 10px red); /* Red glowing effect */
+}
+  
+@keyframes pulse {
+    0% {
+        stroke-width: 20px;
+        stroke-opacity: 1;
+        transform: scale(0.3);
+    }
+    100% {
+        stroke-width: 0;
+        stroke-opacity: 0.5;
+        transform: scale(2);
+    }
+}
+
+.one{
+    transform-origin: -1297px 190px;
+}
+
+.two{
+    transform-origin: -1385px 190px;
+}
+
+.three{
+    transform-origin: -1093px -105px;
+    /* z-index: -10; */
+    cursor: pointer;
+}
+
+.four{
+    transform-origin: -1009px -105px;
+}
+
+.five{
+    transform-origin:-1147px 210px;
+}
+
+.six{
+    transform-origin:-1390px 290px;
+}
+.seven{
+    transform-origin: -1093px -105px;
+}
+.eight{
+    transform-origin: -1009px -105px;
+}
+.nine{
+    transform-origin: -1009px -105px;
+}
+.ten{
+    transform-origin: -1009px -105px;
+}
+.resistor{
+    transform-origin: 115px -234px;
+}
+
+
+
+.led-whole{
+    transform-origin: 540px -270px;
+}
+#g9{
+    cursor: pointer;
+}
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    background-color:#007bff;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 2%;
+    z-index: 1;
+    font-size: 1.2vw;
+  }
+  
+  #snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 2.5s 4.5s;
+    animation: fadein 0.5s, fadeout 2.5s 4.5s;
+  }
+  
+  @-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }
+
+  #key1, #key2{
+      display: none;
+  }
+
+  .key-up-down{
+      animation: up-down 3s linear infinite;
+      stroke: yellow !important;
+      stroke-width: 2px !important;
+  }
+
+  @keyframes up-down {
+      0%{
+          transform: translate(0,0);
+      }
+      50%{
+          transform: translate(0px, -3px);
+      }
+      100%{
+          transform: translate(0px, 0px);
+      }
+      
+  }
+
+@media only screen and (max-width:767px) {
+    .row {
+        display: flex;
+        flex-flow: column-reverse;
+    }
+
+    .table table td,
+    .table table th {
+        padding: 0;
+        vertical-align: middle;
+        height: 5%;
+        font-size: 2vw;
+    }
+
+    tr {
+        height: 5%;
+        font-size: 2vw;
+    }
+
+    .spc {
+        margin-top: 5px;
+    }
+
+    .bt{
+        /* margin-bottom: 10px; */
+        margin-top: 8px;
+    }
+
+    .bg{
+        background-color: rgb(144, 180, 247);
+        text-decoration: #000000;
+    }
+    .fb{
+        font-size: 6.7px;
+    }
+    .btn-sbt{
+        margin-left: 35%;
+        
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-header h5 {
+    margin: 0;
+  }
+
+  .modal-header button {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  #closeModal {
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal.show {
+    display: flex; /* Show modal */
+  }
+  
+  .modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .modal-header h5 {
+    margin: 0;
+  }
+  
+  .modal-body {
+    margin-top: 20px;
+  }
+  
+  button#closeModal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+
+
+  #graphModal {
+    display: flex; /* Keep this for initial modal setup */
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  #graphModal.show {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+
+  .modal {
+    display: none; /* Default hidden */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal.active {
+    display: block; 
+  }
+  #bulbcolor {
+    transition: filter 0.3s ease;
+  }
+  
+  /* Glow Effects */
+  /*.glow-red {
+    filter: drop-shadow(0 0 10px red);
+  }
+  
+  .glow-yellow {
+    filter: drop-shadow(0 0 10px yellow);
+  }
+  
+  .glow-green {
+    filter: drop-shadow(0 0 10px green);
+  }
+  
+  .glow-blue {
+    filter: drop-shadow(0 0 10px blue);
+  }
+  
+  /* Define a general glowing effect */
+/* Glow effect for the bulb */
+.glow-red {
+    animation: glow-red 1.5s infinite alternate;
+    fill: red;
+}
+
+.glow-yellow {
+    animation: glow-yellow 1.5s infinite alternate;
+    fill: yellow;
+}
+
+.glow-green {
+    animation: glow-green 1.5s infinite alternate;
+    fill: green;
+}
+
+.glow-blue {
+    animation: glow-blue 1.5s infinite alternate;
+    fill: blue;
+}
+
+/* Glowing keyframes for each color */
+@keyframes glow-red {
+    0% {
+        filter: brightness(1) drop-shadow(0 0 5px red) drop-shadow(0 0 10px red);
+    }
+    50% {
+        filter: brightness(1.5) drop-shadow(0 0 15px red) drop-shadow(0 0 20px red);
+    }
+    100% {
+        filter: brightness(2) drop-shadow(0 0 25px red) drop-shadow(0 0 30px red);
+    }
+}
+
+@keyframes glow-yellow {
+    0% {
+        filter: brightness(1) drop-shadow(0 0 5px yellow) drop-shadow(0 0 10px yellow);
+    }
+    50% {
+        filter: brightness(1.5) drop-shadow(0 0 15px yellow) drop-shadow(0 0 20px yellow);
+    }
+    100% {
+        filter: brightness(2) drop-shadow(0 0 25px yellow) drop-shadow(0 0 30px yellow);
+    }
+}
+
+@keyframes glow-green {
+    0% {
+        filter: brightness(1) drop-shadow(0 0 5px green) drop-shadow(0 0 10px green);
+    }
+    50% {
+        filter: brightness(1.5) drop-shadow(0 0 15px green) drop-shadow(0 0 20px green);
+    }
+    100% {
+        filter: brightness(2) drop-shadow(0 0 25px green) drop-shadow(0 0 30px green);
+    }
+}
+
+@keyframes glow-blue {
+    0% {
+        filter: brightness(1) drop-shadow(0 0 5px blue) drop-shadow(0 0 10px blue);
+    }
+    50% {
+        filter: brightness(1.5) drop-shadow(0 0 15px blue) drop-shadow(0 0 20px blue);
+    }
+    100% {
+        filter: brightness(2) drop-shadow(0 0 25px blue) drop-shadow(0 0 30px blue);
+    }
+}
+
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
