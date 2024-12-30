@@ -38,3 +38,4 @@ Ensure you have the following installed:
    git clone https://github.com/<your-username>/Plancks-Constant-Experiment.git
    cd Plancks-Constant-Experiment
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/92f24bea-5ae4-4706-93a0-5c3904fbcd66/deploy-status)](https://app.netlify.com/sites/plancksexp-vlabs/deploys)
