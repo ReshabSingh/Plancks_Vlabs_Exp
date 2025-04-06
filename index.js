@@ -1,4 +1,3 @@
-
 // 0->one 1->two 2->three 3->four
   
   terminalMap = {
@@ -16,6 +15,26 @@
   };
   
   document.addEventListener("DOMContentLoaded", () => {
+    // Show warning alert when page loads
+    Swal.fire({
+        title: 'Important Instructions',
+        html: `
+            <div style="text-align: left">
+            <p>🔌 Please complete the circuit connections before starting the experiment:</p>
+            <ul>
+                <li>Connect all terminals in the correct sequence</li>
+                <li>Press the power button</li>
+                <li>Insert the key to activate the circuit</li>
+            </ul>
+            <p>⚡ The controls will be enabled once the circuit is complete.</p>
+            </div>
+        `,
+        icon: 'warning',
+        confirmButtonText: 'Got it!',
+        confirmButtonColor: '#3085d6',
+        allowOutsideClick: false
+    });
+
     const dropdownButton = document.getElementById("dropdownMenuButton");
     const slider = document.getElementById("range");
     const svgObject = document.getElementById("main-svg");
@@ -225,7 +244,7 @@ var xValues = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360];
   
   function trial(componentSom) {
     componentSomMap = terminalMap[componentSom];
-    console.log(componentSomMap, 'componentSomMap');
+    // console.log(componentSomMap, 'componentSomMap');
     
     for (var key in wireTerminalCheck[sequenceNum])
       if (key == componentSomMap) wireTerminalCheck[sequenceNum][key] = true;
@@ -306,8 +325,8 @@ var xValues = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360];
     }
   }
 
-  
-  
 
-  
-  
+
+
+
+

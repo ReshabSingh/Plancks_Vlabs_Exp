@@ -45,29 +45,64 @@ document.querySelectorAll(".dropdown-item").forEach((item) => {
     // Update dropdown button text
     dropdownButton.textContent = selectedColor;
 
-    // Update table values based on the selected color
-    // updateTableValues(selectedColor);
+    // Fill table automatically when color is selected
+    if (selectedColor && tableFields[selectedColor]) {
+      fillTableValues(selectedColor);
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Invalid Color',
+        text: 'There was an error selecting the color. Please try again.',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#3085d6'
+      });
+    }
   });
 });
 
 fillTable.addEventListener('click', function (event) {
-  const selectedColor = dropdownButton.textContent;
   event.preventDefault();
-  fillTableValues(selectedColor);
-})
+  const selectedColor = dropdownButton.textContent;
+  // Verify the selected color is valid
+  if (selectedColor && tableFields[selectedColor]) {
+    fillTableValues(selectedColor);
+  } else {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Color Not Selected',
+      text: 'Please select an LED color before filling the table',
+      confirmButtonText: 'Got it!',
+      confirmButtonColor: '#3085d6'
+    });
+  }
+});
 
 function fillTableValues(color) {
-
+  // Check if color exists in both data structures
+  if (!tableFields[color] || !tableData[color]) {
+    console.error(`Invalid color selection: ${color}`);
+    return;
+  }
 
   const fields = tableFields[color];
   const values = tableData[color];
 
-  // Set the first field (LED input value) to the color name
-  document.getElementById(fields[0]).value = color;
+  try {
+    // Set the first field (LED input value) to the color name
+    const firstField = document.getElementById(fields[0]);
+    if (firstField) {
+      firstField.value = color;
+    }
 
-  // Loop through the remaining fields and update their values
-  for (let i = 1; i < fields.length; i++) {
-    document.getElementById(fields[i]).value = values[i - 1];
+    // Loop through the remaining fields and update their values
+    for (let i = 1; i < fields.length; i++) {
+      const field = document.getElementById(fields[i]);
+      if (field && values[i - 1] !== undefined) {
+        field.value = values[i - 1];
+      }
+    }
+  } catch (error) {
+    console.error('Error filling table values:', error);
   }
 }
 
@@ -178,21 +213,43 @@ drawGraph();
 document.getElementById('showGraph').addEventListener('click', (event) => {
   event.preventDefault();
   const modal = document.getElementById('graphModal');
+  modal.style.display = 'block';  // Changed to style.display
   modal.classList.add('show');
-  drawGraph();
+  
+  // Destroy existing chart if it exists
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
+  
+  // Small delay to ensure modal is visible before drawing
+  setTimeout(() => {
+    drawGraph();
+  }, 100);
 });
 
 // Close modal when clicking the close button
 document.getElementById('closeModal').addEventListener('click', () => {
   const modal = document.getElementById('graphModal');
+  modal.style.display = 'none';
   modal.classList.remove('show');
+  // Destroy chart instance when closing
+  if (chartInstance) {
+    chartInstance.destroy();
+    chartInstance = null;
+  }
 });
 
 // Close modal when clicking outside the modal content
 window.addEventListener('click', (event) => {
   const modal = document.getElementById('graphModal');
   if (event.target === modal) {
+    modal.style.display = 'none';
     modal.classList.remove('show');
+    // Destroy chart instance when closing
+    if (chartInstance) {
+      chartInstance.destroy();
+      chartInstance = null;
+    }
   }
 });
 
