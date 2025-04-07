@@ -182,6 +182,51 @@ circuitComplete = localStorage.getItem("circuitComplete") === "true";
 
     slider.addEventListener("input", updateReadings); 
     svgObject.onload = updateReadings; 
+
+    // Setup dropdown functionality
+    const setupItems = document.querySelectorAll(".setup-item");
+    const setupButton = document.getElementById("setupDropdown");
+
+    setupItems.forEach((item) => {
+        item.addEventListener("click", (event) => {
+            setupButton.textContent = event.target.textContent;
+            // Add any additional setup-specific logic here
+        });
+    });
+
+    // LED dropdown functionality
+    const ledItems = document.querySelectorAll(".led-item");
+    const ledButton = document.getElementById("ledDropdown");
+
+    ledItems.forEach((item) => {
+        item.addEventListener("click", (event) => {
+            currentColor = event.target.dataset.value;
+            ledButton.textContent = event.target.dataset.value;
+            slider.value = 0;
+            updateReadings();
+        });
+    });
+
+    const setupDropdown = document.getElementById('setupDropdown');
+    const mainSvg = document.getElementById('main-svg');
+
+    // Setup dropdown functionality
+    document.querySelectorAll(".setup-item").forEach((item) => {
+        item.addEventListener('click', function(event) {
+            event.preventDefault();
+            const selectedSetup = this.getAttribute('data-value');
+            
+            // Update button text
+            setupDropdown.textContent = this.textContent;
+            
+            // Change SVG based on selection
+            if (selectedSetup === 'Plancks_Exp_Kit') {
+                mainSvg.data = 'kit.svg';
+            } else {
+                mainSvg.data = 'Final_PC2.svg';
+            }
+        });
+    });
 });
 
 
@@ -285,28 +330,26 @@ var xValues = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360];
   }
   
   function replacement() {
-    document.getElementById("black-board").classList.add("hidden");
-    document.getElementById("table-board").classList.add("replacement");
-  
-    document.getElementById("power-btn").style.stroke = "yellow";
-    document.getElementById("power-btn").style.strokeWidth = "0.25%";
-    document.getElementById("power-btn").onclick = function () {
-      checkbtnPressed(0);
-    };
-  
-    document.getElementById("key1").style.display = "block";
-    document.getElementById("key1").classList.add("key-up-down");
-    document.getElementById("key1").onclick = function () {
-      checkbtnPressed(1);
-      keyPut();
-    };
-    document.getElementById("keyBase1").onclick = function () {
-      checkbtnPressed(1);
-      keyPut();
-    };
-    localStorage.setItem("fullScreen", true);
-    
-  }
+  // Power button setup
+  document.getElementById("power-btn").style.stroke = "yellow";
+  document.getElementById("power-btn").style.strokeWidth = "0.25%";
+  document.getElementById("power-btn").onclick = function () {
+    checkbtnPressed(0);
+  };
+
+  // Key setup
+  document.getElementById("key1").style.display = "block";
+  document.getElementById("key1").classList.add("key-up-down");
+  document.getElementById("key1").onclick = function () {
+    checkbtnPressed(1);
+    keyPut();
+  };
+  document.getElementById("keyBase1").onclick = function () {
+    checkbtnPressed(1);
+    keyPut();
+  };
+  localStorage.setItem("fullScreen", true);
+}
   
   function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;

@@ -83,6 +83,25 @@
                   <div class="">
                     <!-- <button type="button" id="circ-comp" class="btn btn-outline-primary mr-4 mt-3 mb-3">Circuit Complete</button> -->
                     <div class="d-flex align-items-center mt-4">
+                      <p class="h5 mt-1 mr-4">Select type of exp:</p>
+                      <div class="dropdown">
+                        <button
+                          class="btn btn-outline-primary dropdown-toggle"
+                          type="button"
+                          id="setupDropdown"
+                          data-bs-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          Plancks Exp Setup
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="setupDropdown">
+                          <li><a class="dropdown-item setup-item" href="#" data-value="Plancks_Exp_Setup">Plancks Exp Setup</a></li>
+                          <li><a class="dropdown-item setup-item" href="#" data-value="Plancks_Exp_Kit">Plancks Exp Kit</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center mt-4">
                       
                       <p class="h5 mt-1 mr-4">Select the LED:</p>
                       <div class="dropdown">
@@ -154,7 +173,7 @@
                     <object
                       type="image/svg+xml"
                       id="main-svg"
-                      data="final_svg.svg"
+                      data="kit.svg"
                     ></object>
                   </div>
                 </div>

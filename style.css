@@ -565,3 +565,16 @@ tr{
     pointer-events: none;
     opacity: 0.6;
 }
+
+.dropdown-menu {
+    display: none;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}

@@ -19,22 +19,6 @@ const tableData = {
   Blue: ["4720", "3.0", "24", "6", "6.1e-34"],
 };
 
-// Disable dropdown initially
-// dropdownButton.disabled = true;
-
-// // Circuit completion click event
-// circuitcomp.addEventListener("click", () => {
-//   console.log("Circuit completed");
-
-//   // Enable the dropdown after circuit is completed
-//   // dropdownButton.disabled = false;
-
-//   // Optional: Provide visual feedback (e.g., color change)
-//   dropdownButton.classList.remove('btn-secondary');
-//   dropdownButton.classList.add('btn-primary');
-// });
-
-// Dropdown item click event
 
 
 document.querySelectorAll(".dropdown-item").forEach((item) => {
@@ -48,16 +32,7 @@ document.querySelectorAll(".dropdown-item").forEach((item) => {
     // Fill table automatically when color is selected
     if (selectedColor && tableFields[selectedColor]) {
       fillTableValues(selectedColor);
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Invalid Color',
-        text: 'There was an error selecting the color. Please try again.',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#3085d6'
-      });
     }
-  });
 });
 
 fillTable.addEventListener('click', function (event) {
@@ -66,14 +41,6 @@ fillTable.addEventListener('click', function (event) {
   // Verify the selected color is valid
   if (selectedColor && tableFields[selectedColor]) {
     fillTableValues(selectedColor);
-  } else {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Color Not Selected',
-      text: 'Please select an LED color before filling the table',
-      confirmButtonText: 'Got it!',
-      confirmButtonColor: '#3085d6'
-    });
   }
 });
 
@@ -121,6 +88,7 @@ function updateTableValues(color) {
   for (let i = 1; i < fields.length; i++) {
     document.getElementById(fields[i]).value = values[i - 1];
   }
+}
 }
 
 
