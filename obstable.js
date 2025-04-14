@@ -19,8 +19,6 @@ const tableData = {
   Blue: ["4720", "3.0", "24", "6", "6.1e-34"],
 };
 
-
-
 document.querySelectorAll(".dropdown-item").forEach((item) => {
   item.addEventListener('click', function (event) {
     event.preventDefault(); // Prevent default anchor behavior
@@ -33,6 +31,7 @@ document.querySelectorAll(".dropdown-item").forEach((item) => {
     if (selectedColor && tableFields[selectedColor]) {
       fillTableValues(selectedColor);
     }
+  });
 });
 
 fillTable.addEventListener('click', function (event) {
@@ -89,8 +88,6 @@ function updateTableValues(color) {
     document.getElementById(fields[i]).value = values[i - 1];
   }
 }
-}
-
 
 // // graph
 

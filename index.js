@@ -227,6 +227,15 @@ circuitComplete = localStorage.getItem("circuitComplete") === "true";
             }
         });
     });
+
+    // Ensure the fillTable button is correctly linked to the fillTableValues function
+    fillTable.addEventListener('click', function (event) {
+      event.preventDefault();
+      const selectedColor = dropdownButton.textContent;
+      if (selectedColor && tableFields[selectedColor]) {
+        fillTableValues(selectedColor);
+      }
+    });
 });
 
 
