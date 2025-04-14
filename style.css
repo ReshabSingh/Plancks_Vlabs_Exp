@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
-
+@font-face {
+    font-family: customFont;
+    src: url(./DS-DIGI.TTF);
+}
 .simulation-container object {
     position: relative;
     width: 100%;
@@ -238,6 +241,47 @@ tr{
 .resistor{
     transform-origin: 115px -234px;
 }
+
+
+/* reverse biased pulse */
+.fourteen{
+    transform-origin: -1112px 120px;
+}
+.fifteen{
+    transform-origin: -1058px 87px;
+}
+.sixteen{
+    transform-origin:-1040px 120px;
+}
+.seventeen{
+    transform-origin: -999px 87px;
+}
+.eighteen{
+    transform-origin: -885px 85px;
+}
+
+.twenty{
+    transform-origin: -823px 85px;
+}
+.twentyone{
+    transform-origin: -778px 260px;
+}
+.twentytwo{
+    transform-origin: -932px 118px;
+}
+.twentythree{
+    transform-origin: -1052px 172px;
+}
+.twentyfour{
+    transform-origin: -945px 177px;
+}
+.twentyfive{
+    transform-origin: -825px 225px;
+}
+.twentysix{
+    transform-origin: -780px 115px;
+}
+
 
 
 
@@ -489,8 +533,15 @@ tr{
     filter: drop-shadow(0 0 10px blue);
   }
   
+  
   /* Define a general glowing effect */
 /* Glow effect for the bulb */
+
+/* hidding the led first */
+#redled, #yellowled, #greenled, #blueled {
+    display: none;
+}
+
 .glow-red {
     animation: glow-red 1.5s infinite alternate;
     fill: red;

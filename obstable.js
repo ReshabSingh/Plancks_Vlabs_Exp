@@ -1,7 +1,7 @@
 // Dropdown button and table element references
 const dropdownButton = document.getElementById('dropdownMenuButton');
 const circuitcomp = document.getElementById('circ-comp');
-const fillTable = document.getElementById('fill-table');
+// const fillTable = document.getElementById('fill-table');
 
 // Map table input IDs to easily update values
 const tableFields = {
@@ -19,59 +19,93 @@ const tableData = {
   Blue: ["4720", "3.0", "24", "6", "6.1e-34"],
 };
 
+// Setup dropdown event listeners
+document.querySelectorAll(".setup-item").forEach((item) => {
+  item.addEventListener('click', function(event) {
+    event.preventDefault();
+    const selectedSetup = this.getAttribute('data-value');
+    const setupDropdown = document.getElementById('setupDropdown');
+    
+    // Update button text
+    setupDropdown.textContent = this.textContent;
+    
+    // Update SVG based on selection
+    const mainSvg = document.getElementById('main-svg');
+    if (mainSvg) {
+      mainSvg.data = selectedSetup;
+    }
+  });
+});
 
+// Color dropdown event listeners 
+document.querySelectorAll(".color-item").forEach((item) => {
+  item.addEventListener('click', function(event) {
+    event.preventDefault();
+    
+    // Check if circuit is complete before proceeding
+    if (sessionStorage.getItem("circuitComplete") !== "true") {
+      alert("Complete the circuit first");
+      return;
+    }
 
-document.querySelectorAll(".dropdown-item").forEach((item) => {
-  item.addEventListener('click', function (event) {
-    event.preventDefault(); // Prevent default anchor behavior
     const selectedColor = this.getAttribute('data-value');
+    const colorDropdown = document.getElementById('dropdownMenuButton');
+    
+    // Update button text
+    colorDropdown.textContent = selectedColor;
 
-    // Update dropdown button text
-    dropdownButton.textContent = selectedColor;
-
-    // Fill table automatically when color is selected
-    if (selectedColor && tableFields[selectedColor]) {
-      fillTableValues(selectedColor);
-    }
+    // Store selected color in sessionStorage
+    sessionStorage.setItem('selectedColor', selectedColor);
+    
+    // Monitor color changes
+    console.log('Color changed to:', selectedColor);
+  });
 });
 
-fillTable.addEventListener('click', function (event) {
-  event.preventDefault();
-  const selectedColor = dropdownButton.textContent;
-  // Verify the selected color is valid
-  if (selectedColor && tableFields[selectedColor]) {
-    fillTableValues(selectedColor);
+// Storage event listener for color changes
+window.addEventListener('storage', (e) => {
+  if (e.key === 'selectedColor') {
+    console.log('Color changed to:', e.newValue);
   }
 });
 
-function fillTableValues(color) {
-  // Check if color exists in both data structures
-  if (!tableFields[color] || !tableData[color]) {
-    console.error(`Invalid color selection: ${color}`);
-    return;
-  }
+// fillTable.addEventListener('click', function (event) {
+//   event.preventDefault();
+//   const selectedColor = dropdownButton.textContent;
+//   // Verify the selected color is valid
+//   if (selectedColor && tableFields[selectedColor]) {
+//     fillTableValues(selectedColor);
+//   }
+// });
 
-  const fields = tableFields[color];
-  const values = tableData[color];
+// function fillTableValues(color) {
+//   // Check if color exists in both data structures
+//   if (!tableFields[color] || !tableData[color]) {
+//     console.error(`Invalid color selection: ${color}`);
+//     return;
+//   }
 
-  try {
-    // Set the first field (LED input value) to the color name
-    const firstField = document.getElementById(fields[0]);
-    if (firstField) {
-      firstField.value = color;
-    }
+//   const fields = tableFields[color];
+//   const values = tableData[color];
 
-    // Loop through the remaining fields and update their values
-    for (let i = 1; i < fields.length; i++) {
-      const field = document.getElementById(fields[i]);
-      if (field && values[i - 1] !== undefined) {
-        field.value = values[i - 1];
-      }
-    }
-  } catch (error) {
-    console.error('Error filling table values:', error);
-  }
-}
+//   try {
+//     // Set the first field (LED input value) to the color name
+//     const firstField = document.getElementById(fields[0]);
+//     if (firstField) {
+//       firstField.value = color;
+//     }
+
+//     // Loop through the remaining fields and update their values
+//     for (let i = 1; i < fields.length; i++) {
+//       const field = document.getElementById(fields[i]);
+//       if (field && values[i - 1] !== undefined) {
+//         field.value = values[i - 1];
+//       }
+//     }
+//   } catch (error) {
+//     console.error('Error filling table values:', error);
+//   }
+// }
 
 // Function to update table values dynamically
 function updateTableValues(color) {
@@ -89,8 +123,6 @@ function updateTableValues(color) {
     document.getElementById(fields[i]).value = values[i - 1];
   }
 }
-}
-
 
 // // graph
 
@@ -334,3 +366,126 @@ document.getElementById('downloadPdf').addEventListener('click', async () => {
   }
 });
 
+
+// event listne for the range slider to only when the circuit is complete and store the value in session storage
+
+const range = document.getElementById('range');
+
+range.addEventListener('input', (event) => {
+  if(sessionStorage.getItem("circuitComplete") == "true") {
+    const newIndex = event.target.value;
+    sessionStorage.setItem("newIndex", newIndex);
+  } else {
+    alert("Complete the circuit first");
+    event.preventDefault();
+    // Reset slider to previous value
+    range.value = range.defaultValue;
+  }
+});
+
+document.querySelectorAll('.setup-item').forEach((item) => {
+  item.addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent default anchor behavior
+    const selectedValue = this.getAttribute('data-value');
+    const dropdownButton = document.getElementById('setupDropdown');
+
+    // Update the dropdown button's text to show the selected option
+    dropdownButton.textContent = this.textContent;
+    
+    // Reset rowCountIndex when graph type changes
+    rowCountIndex = 0;
+    
+    // Update the SVG displayed
+    document.getElementById('main-svg').setAttribute('data', selectedValue);
+    console.log('Selected bias type:', selectedValue);
+  });
+});
+
+document.getElementById("addtable").addEventListener("click", function(event) {
+  event.preventDefault(); // Prevent form submission/page reload
+  addTable();
+});
+
+function addTable() {
+  // Check if circuit is complete and color is selected
+  const circuitComplete = sessionStorage.getItem("circuitComplete") === "true";
+  const selectedColor = sessionStorage.getItem("selectedColor");
+
+  if (!circuitComplete) {
+    alert("Complete the circuit first");
+    return;
+  }
+
+  if (!selectedColor || !tableFields[selectedColor]) {
+    alert("Please select a valid LED color");
+    return;
+  }
+
+  try {
+    // Get fields and values for the selected color
+    const fields = tableFields[selectedColor];
+    const values = tableData[selectedColor];
+
+    // Check if values are already filled
+    const firstField = document.getElementById(fields[0]);
+    if (firstField && firstField.value === selectedColor) {
+      alert("Values for this color are already filled");
+      return;
+    }
+
+    // Set the LED color name
+    if (firstField) {
+      firstField.value = selectedColor;
+    }
+
+    // Fill the remaining fields with corresponding values
+    for (let i = 1; i < fields.length; i++) {
+      const field = document.getElementById(fields[i]);
+      if (field && values[i - 1] !== undefined) {
+        field.value = values[i - 1];
+      }
+    }
+
+    console.log(`Table filled with ${selectedColor} LED data`);
+  } catch (error) {
+    console.error('Error filling table:', error);
+    alert('Error filling table values');
+  }
+}
+
+async function downloadObservationTable() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  try {
+      // Add header with styling
+      doc.setFillColor(0, 123, 255);
+      doc.rect(10, 5, 190, 10, 'F');
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(20);
+      doc.text("Plancks Constant Observations", 55, 12);
+
+      // Capture and add observation table
+      const tableCanvas = await html2canvas(document.querySelector("#table1"), {
+          scale: 2,
+          useCORS: true,
+          allowTaint: false
+      });
+      const tableImgData = tableCanvas.toDataURL("image/png");
+      doc.addImage(tableImgData, "PNG", 15, 20, 180, 100);
+
+      // Save the PDF
+      doc.save("plancks_constant_observations.pdf");
+
+  } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('Could not generate PDF. Please check console for details.');
+  }
+}
+
+// Add event listener to download button
+document.getElementById("downloadPdf").addEventListener("click", function(event) {
+  event.preventDefault();
+  downloadObservationTable();
+});
